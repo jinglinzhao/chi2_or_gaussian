@@ -63,9 +63,10 @@ plt.show()
 #------------------------------
 N = 100
 model_mean = np.linspace(-2, 2, N)
-logP = np.zeros((6,N))
 
 # Approach 1 - Chi-squared
+logP = np.zeros((6,N))
+
 for i in range(6):
 	for k in range(N):
 		C = np.loadtxt(file_dir + '101501_C' + str(i+1) + '.txt')
@@ -74,26 +75,31 @@ for i in range(6):
 		logP[i, k] = np.log(chi2.pdf(X, len(C)))
 
 	plt.plot(model_mean, logP[i, :])
-	plt.title('chi2_logP '+str(i))
-	plt.xlabel('constant_model')
+	plt.title('chi2_logP '+str(i+1))
+	plt.xlabel('constant_model_value')
 	plt.ylabel('log-likelihood')
 	plt.axvline(x=np.average(C, weights=1/C_err**2))
-	plt.savefig('chi2_logP'+str(i)+'.png')
+	plt.savefig('chi2_logP'+str(i+1)+'.png')
 	plt.close()
 # The plots above show that the mean estimated by
 # maximising the chi-squared log-likelihood function
 # is consistent with the weighted mean of the data.
 
 # Approach 2 - Gaussian
+logP2 = np.zeros((6,N))
+
 for i in range(6):
 	for k in range(N):
 		C = np.loadtxt(file_dir + '101501_C' + str(i+1) + '.txt')
 		C_err = np.loadtxt(file_dir + '101501_err_C' + str(i+1) + '.txt')
-		logP[i, k] = sum(np.log(norm.pdf(model_mean[k], C, C_err)))
-	plt.plot(model_mean, logP[i, :])
-	plt.title('gaussian_logP ' + str(i))
-	plt.xlabel('constant_model')
+		logP2[i, k] = sum(np.log(norm.pdf(model_mean[k], C, C_err)))
+	plt.plot(model_mean, logP2[i, :])
+	plt.title('gaussian_logP ' + str(i+1))
+	plt.xlabel('constant_model_value')
 	plt.ylabel('log-likelihood')
 	plt.axvline(x=np.average(C, weights=1/C_err**2))
-	plt.savefig('gaussian_logP'+str(i)+'.png')
+	plt.savefig('gaussian_logP'+str(i+1)+'.png')
 	plt.close()
+# The plots above show that the mean estimated by
+# maximising the gaussian log-likelihood function
+# is consistent with the weighted mean of the data.
