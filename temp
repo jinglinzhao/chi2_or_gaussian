@@ -1,0 +1,52 @@
+#vvvvvvvvvvvvvvvvvvvvvvvv
+#vvvvvvvvvvvvvvvvvvvvvvvv
+
+# make parameter between
+N = 100
+mean = np.linspace(-2, 2, N)
+logP = np.zeros((6,N))
+for k in range(N):
+	for i in range(6):
+		C = np.loadtxt(file_dir + '101501_C' + str(i+1) + '.txt')
+		C_err = np.loadtxt(file_dir + '101501_err_C' + str(i+1) + '.txt')
+		X = sum(((C-mean[k])/C_err)**2) # X follows chi2 distribution
+		logP[i, k] = np.log(chi2.pdf(X, len(C)))
+
+plt.plot(mean, logP[5, :], '.')
+plt.show()
+
+np.average(C, weights=1/C_err**2)
+np.mean(C)
+
+final_evidence = np.zeros(7)
+for i in range(7):
+	final_evidence[i] = initial_evidence[i] + sum(logP[i:])
+
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+#vvvvvvvvvvvvvvvvvvvvvvvv
+#vvvvvvvvvvvvvvvvvvvvvvvv
+
+N = 100
+mean = np.linspace(-2, 2, N)
+logP = np.zeros((6,N))
+for k in range(N):
+	for i in range(6):
+		C = np.loadtxt(file_dir + '101501_C' + str(i+1) + '.txt')
+		C_err = np.loadtxt(file_dir + '101501_err_C' + str(i+1) + '.txt')
+		logP[i, k] = np.log(np.prod(norm.pdf(mean[k], C, C_err)))
+
+plt.plot(mean, logP[5, :], '.')
+plt.show()
+
+np.average(C, weights=1/C_err**2)
+np.mean(C)
+
+
+
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^
