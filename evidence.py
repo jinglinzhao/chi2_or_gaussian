@@ -3,7 +3,7 @@ from scipy.stats import chi2
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 
-# read the evidence from GLOM
+# read the evidence generated from GLOM
 STAR_ID = 101501
 file_dir = './initial_evidence/'
 initial_evidence = np.zeros(7)
@@ -14,7 +14,7 @@ for i in range(7):
 # read the pca scores as activity indicators and calculate the likelihood of the 0 model
 file_dir = "./pca/"
 
-# version 1 - Chi-squared
+# Approach 1 - Chi-squared
 
 logP = np.zeros(6)
 for i in range(6):
@@ -29,7 +29,7 @@ for i in range(7):
 	final_evidence[i] = initial_evidence[i] + sum(logP[i:])
 
 
-# version 2 - Gaussian
+# Approach 2 - Gaussian
 
 logP2 = np.zeros(6)
 for i in range(6):
@@ -44,16 +44,16 @@ for i in range(7):
 # Plots
 num_indicator = np.arange(7)
 
+plt.plot(num_indicator, initial_evidence, 'kd')
+plt.xlabel('number of activity indicators')
+plt.ylabel('initial evidence')
+plt.savefig('initial_evidence.png')
+plt.show()
+
 plt.plot(num_indicator, final_evidence, 'o', label='chi2')
 plt.plot(num_indicator, final_evidence2, 's', label='gaussian')
 plt.legend()
 plt.xlabel('number of activity indicators')
 plt.ylabel('final evidence')
 plt.savefig('final_evidence.png')
-plt.show()
-
-plt.plot(num_indicator, initial_evidence, 'kd')
-plt.xlabel('number of activity indicators')
-plt.ylabel('initial evidence')
-plt.savefig('initial_evidence.png')
 plt.show()
