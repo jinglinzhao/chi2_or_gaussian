@@ -35,7 +35,7 @@ logP2 = np.zeros(6)
 for i in range(6):
 	C = np.loadtxt(file_dir + str(STAR_ID) + '_C' + str(i+1) + '.txt')
 	C_err = np.loadtxt(file_dir + str(STAR_ID) + '_err_C' + str(i+1) + '.txt')
-	logP2[i] = np.log(np.prod(norm.pdf(0, C, C_err)))
+	logP2[i] = sum(np.log(norm.pdf(0, C, C_err)))
 
 final_evidence2 = np.zeros(7)
 for i in range(7):
