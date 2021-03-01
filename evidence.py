@@ -47,7 +47,7 @@ num_indicator = np.arange(7)
 plt.plot(num_indicator, initial_evidence, 'kd')
 plt.xlabel('number of activity indicators')
 plt.ylabel('initial evidence')
-plt.savefig('initial_evidence.png')
+plt.savefig('./plots/initial_evidence.png')
 plt.show()
 
 plt.plot(num_indicator, final_evidence, 'o', label='chi2')
@@ -55,7 +55,7 @@ plt.plot(num_indicator, final_evidence2, 's', label='gaussian')
 plt.legend()
 plt.xlabel('number of activity indicators')
 plt.ylabel('final evidence')
-plt.savefig('final_evidence.png')
+plt.savefig('./plots/final_evidence.png')
 plt.show()
 
 #------------------------------
@@ -79,7 +79,7 @@ for i in range(6):
 	plt.xlabel('constant_model_value')
 	plt.ylabel('log-likelihood')
 	plt.axvline(x=np.average(C, weights=1/C_err**2))
-	plt.savefig('chi2_logP'+str(i+1)+'.png')
+	plt.savefig('./plots/chi2_logP'+str(i+1)+'.png')
 	plt.close()
 # The plots above show that the mean estimated by
 # maximising the chi-squared log-likelihood function
@@ -98,7 +98,7 @@ for i in range(6):
 	plt.xlabel('constant_model_value')
 	plt.ylabel('log-likelihood')
 	plt.axvline(x=np.average(C, weights=1/C_err**2))
-	plt.savefig('gaussian_logP'+str(i+1)+'.png')
+	plt.savefig('./plots/gaussian_logP'+str(i+1)+'.png')
 	plt.close()
 # The plots above show that the mean estimated by
 # maximising the gaussian log-likelihood function
@@ -114,5 +114,5 @@ for DoF in range(6):
 	plt.xlim([0, 6])
 	plt.ylim([0,2])
 	plt.legend()
-plt.savefig('chi-squared_distribution.png')	
+plt.savefig('./plots/chi-squared_distribution.png')
 plt.show()
