@@ -103,3 +103,16 @@ for i in range(6):
 # The plots above show that the mean estimated by
 # maximising the gaussian log-likelihood function
 # is consistent with the weighted mean of the data.
+
+
+#-------------------------
+# Chi-squared distribution
+#-------------------------
+x = np.linspace(0, 6, 1000)
+for DoF in range(6):
+	plt.plot(x, chi2.pdf(x, DoF), label='k={}'.format(DoF))
+	plt.xlim([0, 6])
+	plt.ylim([0,2])
+	plt.legend()
+plt.savefig('chi-squared_distribution.png')	
+plt.show()
